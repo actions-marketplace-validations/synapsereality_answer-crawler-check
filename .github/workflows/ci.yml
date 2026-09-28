@@ -1,0 +1,35 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm test
+
+  action:
+    # Runs the action from this checkout against a small local build.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p site
+          printf '<urlset><url><loc>https://example.com/</loc></url></urlset>' > site/sitemap.xml
+          printf 'User-agent: *\nAllow: /\n' > site/robots.txt
+      - uses: ./
+        with:
+          sitemap: site/sitemap.xml
+          site-dir: site

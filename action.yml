@@ -1,0 +1,52 @@
+name: answer-crawler-check
+description: Fail the job when robots.txt blocks an AI answer crawler from any URL in your sitemap.
+author: Synapse Research Ltd
+branding:
+  icon: check-circle
+  color: green
+inputs:
+  sitemap:
+    description: Sitemap URL(s) or file path(s), separated by spaces. Indexes and .gz files are followed.
+    required: true
+  agents:
+    description: answer (default), answer-extended, all, or a comma-separated list of crawler names.
+    required: false
+    default: answer
+  robots:
+    description: Optional robots.txt file or URL to use for every site instead of fetching it.
+    required: false
+    default: ""
+  site-dir:
+    description: Optional local build folder (for example dist). Sitemaps and robots.txt are read from it when present.
+    required: false
+    default: ""
+  require-named:
+    description: Set to "true" to fail when a crawler has no User-agent group of its own.
+    required: false
+    default: "false"
+  args:
+    description: Extra command line flags, for example "--max-urls 5000".
+    required: false
+    default: ""
+runs:
+  using: composite
+  steps:
+    - name: Check AI answer crawler access
+      shell: bash
+      env:
+        ACC_SITEMAP: ${{ inputs.sitemap }}
+        ACC_AGENTS: ${{ inputs.agents }}
+        ACC_ROBOTS: ${{ inputs.robots }}
+        ACC_SITE_DIR: ${{ inputs.site-dir }}
+        ACC_REQUIRE_NAMED: ${{ inputs.require-named }}
+        ACC_ARGS: ${{ inputs.args }}
+        ACC_BIN: ${{ github.action_path }}/bin/answer-crawler-check.js
+      run: |
+        # Inputs arrive as environment variables so a value can never be run as shell code.
+        read -r -a sitemaps <<< "$ACC_SITEMAP"
+        read -r -a extra <<< "$ACC_ARGS"
+        opts=(--agents "$ACC_AGENTS")
+        [ -n "$ACC_ROBOTS" ] && opts+=(--robots "$ACC_ROBOTS")
+        [ -n "$ACC_SITE_DIR" ] && opts+=(--site-dir "$ACC_SITE_DIR")
+        [ "$ACC_REQUIRE_NAMED" = "true" ] && opts+=(--require-named)
+        node "$ACC_BIN" "${sitemaps[@]}" "${opts[@]}" "${extra[@]}"
