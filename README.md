@@ -8,7 +8,7 @@ the page, and nothing else in the build notices.
 Docs: https://synapsereality.io/open-source/answer-crawler-check/
 
 ```bash
-npx answer-crawler-check https://example.com/sitemap-index.xml   # not on npm yet, see "Install from source"
+npx answer-crawler-check https://example.com/sitemap-index.xml
 ```
 
 ## What it checks
@@ -128,7 +128,7 @@ answer-crawler-check dist/sitemap-index.xml --site-dir dist
 ```yaml
 - uses: actions/checkout@v4
 - run: npm ci && npm run build
-- uses: bensynapse/answer-crawler-check@v0.1.0
+- uses: synapsereality/answer-crawler-check@v0.1.0
   with:
     sitemap: dist/sitemap-index.xml
     site-dir: dist
@@ -144,7 +144,7 @@ jobs:
   crawlers:
     runs-on: ubuntu-latest
     steps:
-      - uses: bensynapse/answer-crawler-check@v0.1.0
+      - uses: synapsereality/answer-crawler-check@v0.1.0
         with:
           sitemap: https://example.com/sitemap-index.xml
           require-named: "true"
@@ -155,7 +155,7 @@ The action runs on the runner's own Node (20 or later) and installs nothing.
 ## Install from source
 
 ```bash
-git clone https://github.com/bensynapse/answer-crawler-check
+git clone https://github.com/synapsereality/answer-crawler-check
 cd answer-crawler-check
 node bin/answer-crawler-check.js --help
 ```

@@ -35,5 +35,12 @@
   ],
   "homepage": "https://synapsereality.io/open-source/answer-crawler-check/",
   "license": "MIT",
-  "author": "Synapse Research Ltd"
+  "author": "Synapse Research Ltd",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/synapsereality/answer-crawler-check.git"
+  },
+  "bugs": {
+    "url": "https://github.com/synapsereality/answer-crawler-check/issues"
+  }
 }

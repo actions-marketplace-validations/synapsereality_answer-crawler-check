@@ -1,0 +1,48 @@
+name: release
+
+# Runs when a GitHub release is published. Publishes to npm through trusted
+# publishing (OIDC) with provenance, so no npm token is stored anywhere.
+# npm only accepts this once the package exists: see RELEASE.md for the first
+# release, which is published by hand.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  npm:
+    runs-on: ubuntu-latest
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/answer-crawler-check
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          # Trusted publishing needs npm 11.5.1 or later and Node 22.14 or later.
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+      - name: Check the tag matches the package version
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [ "$TAG" != "v$version" ]; then
+            echo "release tag $TAG does not match package.json version $version"
+            exit 1
+          fi
+      - run: npm --version
+      - run: npm test
+      - name: Publish, unless this version is already on npm
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if npm view "answer-crawler-check@$version" version >/dev/null 2>&1; then
+            echo "answer-crawler-check@$version is already on npm, nothing to publish"
+            exit 0
+          fi
+          npm publish --access public

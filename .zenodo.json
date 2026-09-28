@@ -1,0 +1,30 @@
+{
+  "title": "answer-crawler-check: Fail CI when robots.txt blocks an AI answer crawler from any URL in your sitemap.",
+  "description": "Fail CI when robots.txt blocks an AI answer crawler from any URL in your sitemap. Documentation: https://synapsereality.io/open-source/answer-crawler-check/",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Synapse Research Ltd"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "robots.txt",
+    "AI crawlers",
+    "answer engine optimization",
+    "sitemap",
+    "GitHub Action"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://synapsereality.io/open-source/answer-crawler-check/",
+      "relation": "isDocumentedBy",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/synapsereality/answer-crawler-check",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}
