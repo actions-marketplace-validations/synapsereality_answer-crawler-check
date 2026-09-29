@@ -128,7 +128,7 @@ answer-crawler-check dist/sitemap-index.xml --site-dir dist
 ```yaml
 - uses: actions/checkout@v4
 - run: npm ci && npm run build
-- uses: synapsereality/answer-crawler-check@v0.1.0
+- uses: synapsereality/answer-crawler-check@v0.1.1
   with:
     sitemap: dist/sitemap-index.xml
     site-dir: dist
@@ -144,7 +144,7 @@ jobs:
   crawlers:
     runs-on: ubuntu-latest
     steps:
-      - uses: synapsereality/answer-crawler-check@v0.1.0
+      - uses: synapsereality/answer-crawler-check@v0.1.1
         with:
           sitemap: https://example.com/sitemap-index.xml
           require-named: "true"

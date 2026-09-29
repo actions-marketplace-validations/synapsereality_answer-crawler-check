@@ -6,7 +6,7 @@ abstract: "Fail CI when robots.txt blocks an AI answer crawler from any URL in y
 authors:
   - name: "Synapse Research Ltd"
     website: "https://synapsereality.io/"
-version: "0.1.0"
+version: "0.1.1"
 license: MIT
 repository-code: "https://github.com/synapsereality/answer-crawler-check"
 url: "https://synapsereality.io/open-source/answer-crawler-check/"

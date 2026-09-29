@@ -1,6 +1,6 @@
 {
   "name": "answer-crawler-check",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Fail CI when robots.txt blocks an AI answer crawler (OAI-SearchBot, Claude-SearchBot, PerplexityBot and more) from any page in your sitemap.",
   "type": "module",
   "bin": {
@@ -35,7 +35,10 @@
   ],
   "homepage": "https://synapsereality.io/open-source/answer-crawler-check/",
   "license": "MIT",
-  "author": "Synapse Research Ltd",
+  "author": {
+    "name": "Synapse Research Ltd",
+    "url": "https://synapsereality.io"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/synapsereality/answer-crawler-check.git"
